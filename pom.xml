@@ -95,19 +95,19 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>Landmark Technologies Releases Nexus Repository</name>
-	      <url>http://184.169.187.36:818/brosj/repository/tesla-releases/</url>
+	      <url>http://54.193.45.43:8181/brosj/repository/tesla-releases/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>Landmark Technologies Snapshot Nexus Repository </name>
-	      <url>http://184.169.187.36:8181/brosj/repository/paypal-snapshots/</url>
+	      <url>http://54.193.45.43:8181/brosj/repository/tesla-snapshots/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
 	
 	<build>
-		<finalName>paypal</finalName>
+		<finalName>tesla</finalName>
 		
 		<plugins>
 			<plugin>
