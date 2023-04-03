@@ -1,0 +1,48 @@
+pipeline{
+    agent{
+        node "master"
+    }
+    tools{
+        maven "maven3.9.1"
+    }
+    //options{}
+    //triggers{}
+    stages{
+        stage('1codeclone'){
+        steps{
+             git "https://github.com/Prolific-J/maven-web-application"
+            }
+        }
+        stage('2buildcode'){
+        steps{
+            sh "mvn package"
+            }
+        }
+        stage('3codequality'){
+            steps{
+                sh "mvn sonar:sonar"
+            }
+        }
+        stage('4upload2nexus'){
+            steps{
+                sh "mvn deploy"
+            }
+        }
+        stage('5deploy2PROD'){
+            steps{
+                deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://54.67.81.52:8177/')], contextPath: null, war: 'target/*war'
+            }
+        }
+    }
+    post{
+        always{
+            emailext body: 'the build has worked', recipientProviders: [buildUser(), developers(), upstreamDevelopers()], subject: 'build sucess', to: 'okponuj880@gmail.com'
+        }
+        success{
+            emailext body: 'the build has worked', recipientProviders: [buildUser(), developers(), upstreamDevelopers()], subject: 'build sucess', to: 'okponuj880@gmail.com'
+        }
+        failure{
+            emailext body: 'the build has failed plase review and correct', recipientProviders: [buildUser(), developers(), upstreamDevelopers()], subject: 'build failure', to: 'okponuj880@gmail.com'
+        }
+    }
+}
