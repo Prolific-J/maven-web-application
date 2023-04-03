@@ -21,11 +21,6 @@ node{
         input message: 'please approve approve or decline deployment'
         }
     }
-    /*stage('6Manualapproval'){
-    sh "echo 'ready for review' "
-    timeout(time:5, unit:'HOURS') {
-    input message: 'Application ready for deployment, Please review and approve'
-      }*/
     stage('7upload2PRODUCTION'){
           deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://54.219.233.185:8177/')], contextPath: null, war: 'target/*war'
     }
